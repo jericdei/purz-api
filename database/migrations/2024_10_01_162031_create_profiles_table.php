@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('suffix')->nullable();
             $table->date('birthday');
             $table->string('avatar_url')->nullable();
+            $table->string('gender');
+            $table->string('contact_number');
+            $table->foreignUlid('address_id')->nullable();
             $table->timestamps();
         });
     }
