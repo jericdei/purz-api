@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use App\Enums\TransactionType;
 use App\Enums\UserRank;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -12,10 +10,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasUlids;
+    use HasFactory, Notifiable, HasUlids, HasApiTokens;
 
     protected $guarded = ['id'];
 
@@ -31,6 +30,11 @@ class User extends Authenticatable
             'passcode' => 'hashed',
             'rank' => UserRank::class,
         ];
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->passcode;
     }
 
     public function getBalance(): float
