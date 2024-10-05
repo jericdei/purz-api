@@ -27,9 +27,11 @@ class ValidateCodeController extends Controller
 
         Cache::forget($name);
 
+        /** @var User|null */
         $user = User::query()->whereEmail($request->email)->first();
 
         if (!$user) {
+            /** @var User */
             $user = User::create([
                 'username' => $request->email,
                 'email' => $request->email,
@@ -40,6 +42,8 @@ class ValidateCodeController extends Controller
 
         Auth::login($user);
 
-        return response()->noContent();
+        return response()->json([
+            'token' => $user->createToken($user->email)->plainTextToken,
+        ]);
     }
 }
