@@ -30,6 +30,8 @@ class ValidateCodeController extends Controller
         /** @var User|null */
         $user = User::query()->whereEmail($request->email)->first();
 
+        $isRegister = !$user;
+
         if (!$user) {
             /** @var User */
             $user = User::create([
@@ -44,6 +46,7 @@ class ValidateCodeController extends Controller
 
         return response()->json([
             'token' => $user->createToken($user->email)->plainTextToken,
+            'is_register' => $isRegister,
         ]);
     }
 }

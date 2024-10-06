@@ -15,7 +15,7 @@ class GenerateCodeController extends Controller
     public function __invoke(Request $request): Response
     {
         $request->validate([
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
         ]);
 
         $code = mt_rand(10_000, 99_999);
