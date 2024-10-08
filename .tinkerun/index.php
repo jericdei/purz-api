@@ -1,9 +1,7 @@
 <?php
 
-use App\Models\User;
+use Jericdei\PsgcDatabase\Models\City;
 
-$users = User::all();
+$city = City::find('1380600000');
 
-$withBalance = $users->map(fn(User $user) => ['id' => $user->id, 'balance' => $user->getBalance()]);
-
-dd($withBalance);
+dd($city->barangays);
