@@ -64,7 +64,7 @@ Route::prefix('psgc')->as('psgc.')->group(function () {
 
     Route::get('cities', fn(Request $request) => response()->json([
         'cities' => City::query()
-            ->where('province_code', $request->input('province_code'))
+            ->where('region_code', $request->input('region_code'))
             ->get(['city_code', 'name']),
     ]));
 
@@ -76,7 +76,7 @@ Route::prefix('psgc')->as('psgc.')->group(function () {
     ]));
 
     Route::get('sub_municipalities', fn() => response()->json([
-        'sub_municipalities' => SubMunicipality::all(['sub_municipality_code', 'name']),
+        'sub_municipalities' => SubMunicipality::all(['municipality_code', 'name']),
     ]));
 
     Route::get('barangays', fn(Request $request) => response()->json([
